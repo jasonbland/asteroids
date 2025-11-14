@@ -1,0 +1,31 @@
+import pygame
+
+# Base class for game objects
+class CircleShape(pygame.sprite.Sprite):
+    def __init__(self, x, y, radius):
+        # we will be using this later
+        if hasattr(self, "containers"):
+            super().__init__(self.containers)
+        else:
+            super().__init__()
+
+        self.position = pygame.Vector2(x, y)
+        self.velocity = pygame.Vector2(0, 0)
+        self.radius = radius
+
+    def draw(self, screen):
+        # must override
+        pass
+
+    def update(self, dt):
+        # must override
+        pass
+
+    def collides_with(self, other):
+        cp_distance = pygame.Vector2(self.position).distance_to(other.position)
+        # print(type(cp_distance))
+        combined_radius = self.radius + other.radius
+
+        # if cp_distance <= combined_radius:
+          # print(f"{cp_distance}: {combined_radius}")
+        return cp_distance <= combined_radius
